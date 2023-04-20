@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -31,12 +32,18 @@ public class PatientController {
         return "patients";
     }
     @GetMapping("/delete")
-    public String delete(Long id){
+    public String delete(Long id, String keyWord, int page){
         patientRepository.deleteById(id);
-        return "redirect:/index";
+        return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }
     @GetMapping("/")
     public String home(){
         return "redirect:/index";
+    }
+
+    @GetMapping("/patients")
+    @ResponseBody
+    public List<Patient> listePatients(){
+        return patientRepository.findAll();
     }
 }
