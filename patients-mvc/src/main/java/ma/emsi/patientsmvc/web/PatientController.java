@@ -20,11 +20,13 @@ public class PatientController {
     @GetMapping(path="/index")
     public String patients(Model model ,
                            @RequestParam(name="page",defaultValue = "0") int page ,
-                           @RequestParam(name="size",defaultValue = "5")  int size){
-        Page<Patient> pagePatients=patientRepository.findAll(PageRequest.of(page,size));
+                           @RequestParam(name="size",defaultValue = "5")  int size ,
+                           @RequestParam(name="keyWord", defaultValue = "") String keyWord){
+        Page<Patient> pagePatients=patientRepository.findByNomContains(keyWord,PageRequest.of(page,size));
         model.addAttribute("listPatients",pagePatients.getContent());
         model.addAttribute("pages",new int[pagePatients.getTotalPages()]);
         model.addAttribute("currentPage",page);
+        model.addAttribute("keyWord",keyWord);
         //retourne une vue appele patients.html
         return "patients";
     }

@@ -11,6 +11,11 @@
     <div class="card text-center">
         <div class="card-header h1">Liste des patients</div>
         <div class="card-body">
+            <form action="get" th:action="@{index}">
+                <label>Key word</label>
+                <input type="text" name="keyWord" th:value="${keyWord}">
+                <button type="submit" class="btn btn-dark">chercher</button>
+            </form>
             <table class="table table-light">
                 <thead>
                 <tr class="table table-dark text-white h3">
