@@ -30,4 +30,13 @@ public class PatientController {
         //retourne une vue appele patients.html
         return "patients";
     }
+    @GetMapping("/delete")
+    public String delete(Long id){
+        patientRepository.deleteById(id);
+        return "redirect:/index";
+    }
+    @GetMapping("/")
+    public String home(){
+        return "redirect:/index";
+    }
 }
