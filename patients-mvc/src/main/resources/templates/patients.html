@@ -11,9 +11,9 @@
     <div class="card text-center">
         <div class="card-header h1">Liste des patients</div>
         <div class="card-body">
-            <table class="table table-dark">
+            <table class="table table-light">
                 <thead>
-                <tr>
+                <tr class="table table-dark text-white h3">
                     <th>ID</th>
                     <th>Nom</th>
                     <th>Date</th>
@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="p:${listPatients}">
-                    <td th:text="${p.id}"></td>
+                    <td class="bg-dark text-white h3" th:text="${p.id}"></td>
                     <td th:text="${p.nom}"></td>
                     <td th:text="${p.dateNaissance}"></td>
                     <td th:text="${p.malade}"></td>
