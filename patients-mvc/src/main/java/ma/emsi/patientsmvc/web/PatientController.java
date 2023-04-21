@@ -18,11 +18,17 @@ import java.util.List;
 public class PatientController {
     private PatientRepository patientRepository;
 
+    @GetMapping("/")
+    public String home(){
+        return "redirect:/index";
+    }
+
     @GetMapping(path="/index")
-    public String patients(Model model ,
+    public String rechercherPatiens(Model model ,
                            @RequestParam(name="page",defaultValue = "0") int page ,
                            @RequestParam(name="size",defaultValue = "5")  int size ,
-                           @RequestParam(name="keyWord", defaultValue = "") String keyWord){
+                           @RequestParam(name="keyWord", defaultValue = "") String keyWord)
+    {
         Page<Patient> pagePatients=patientRepository.findByNomContains(keyWord,PageRequest.of(page,size));
         model.addAttribute("listPatients",pagePatients.getContent());
         model.addAttribute("pages",new int[pagePatients.getTotalPages()]);
@@ -36,12 +42,8 @@ public class PatientController {
         patientRepository.deleteById(id);
         return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }
-    @GetMapping("/")
-    public String home(){
-        return "redirect:/index";
-    }
 
-    @GetMapping("/patients")
+    @GetMapping("/patientsJson")
     @ResponseBody
     public List<Patient> listePatients(){
         return patientRepository.findAll();
