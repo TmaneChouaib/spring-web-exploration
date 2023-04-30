@@ -42,12 +42,12 @@ public class PatientController {
         model.addAttribute("currentPage",page);
         model.addAttribute("keyWord",keyWord);
 
-        //return the patients.html vue in the templates folder
+        //retuun the patients.html vue in the templates folder
         return "patients";
     }
 
-    @GetMapping("/delete")
-    public String delete(Long id, String keyWord, int page){
+    @GetMapping("/deletePatients")
+    public String deletePatients(Long id, String keyWord, int page){
         patientRepository.deleteById(id);
         return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }

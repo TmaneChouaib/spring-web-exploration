@@ -44,7 +44,7 @@
                         <td th:text="${p.date}"></td>
                         <td th:text="${p.sick}"></td>
                         <td><a onclick="return confirm('Are you sure you want to delete this line?')"
-                               class="btn btn-danger border-dark" th:href="@{delete(id=${p.id}, keyWord=${keyWord}, page=${currentPage})}">
+                               class="btn btn-danger border-dark" th:href="@{deletePatients(id=${p.id}, keyWord=${keyWord}, page=${currentPage})}">
                             Delete</a></td>
                     </tr>
                 </tbody>
