@@ -31,7 +31,7 @@ public class PatientController {
     }
 
     @GetMapping(path="/index")
-    public String rechercherPatiens(Model model ,
+    public String index(Model model ,
                            @RequestParam(name="page", defaultValue = "0") int page ,
                            @RequestParam(name="size", defaultValue = "5")  int size ,
                            @RequestParam(name="keyWord", defaultValue = "") String keyWord)
@@ -42,7 +42,7 @@ public class PatientController {
         model.addAttribute("currentPage",page);
         model.addAttribute("keyWord",keyWord);
 
-        //retourne la vue patients.html
+        //return the patients.html vue in the templates folder
         return "patients";
     }
 

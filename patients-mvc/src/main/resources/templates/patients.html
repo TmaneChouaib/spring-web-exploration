@@ -2,18 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Index</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
 </head>
 <body>
 
-<div class="container mt-2">
+<div class="container mt-5">
     <div class="card text-center">
-        <div class="card-header h1">Patients Index</div>
+
+        <div class="d-flex justify-content-center border border-dark">
+            <div class="col-md-6">
+                <div class="card-header bg-dark bg-subtle text-white h1">Patients Index</div>
+            </div>
+        </div>
+
         <div class="card-body">
 
             <form action="get" th:action="@{index}">
-                <label>Key word</label>
+                <label class="form-label">Key word</label>
                 <input type="text" name="keyWord" th:value="${keyWord}">
                 <button type="submit" class="btn btn-dark border-dark mb-2">find</button>
             </form>
@@ -35,9 +41,9 @@
                         <td class="bg-dark text-white h3" th:text="${p.id}"></td>
                         <td th:text="${p.name}"></td>
                         <td th:text="${p.age}"></td>
-                        <td th:text="${p.dateNaissance}"></td>
+                        <td th:text="${p.date}"></td>
                         <td th:text="${p.sick}"></td>
-                        <td><a onclick="return confirm('Etes vous sure de vouloir supprimer cette ligne?')"
+                        <td><a onclick="return confirm('Are you sure you want to delete this line?')"
                                class="btn btn-danger border-dark" th:href="@{delete(id=${p.id}, keyWord=${keyWord}, page=${currentPage})}">
                             Delete</a></td>
                     </tr>

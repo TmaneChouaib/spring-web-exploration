@@ -17,7 +17,7 @@ public class Patient {
     private int age;
 
     @Temporal(TemporalType.DATE)
-    private Date dateNaissance;
+    private Date date;
     private boolean sick;
 
 
