@@ -9,46 +9,52 @@
 
 <div class="container mt-2">
     <div class="card text-center">
-        <div class="card-header h1">Liste des patients</div>
+        <div class="card-header h1">Patients Index</div>
         <div class="card-body">
+
             <form action="get" th:action="@{index}">
                 <label>Key word</label>
                 <input type="text" name="keyWord" th:value="${keyWord}">
-                <button type="submit" class="btn btn-dark">chercher</button>
+                <button type="submit" class="btn btn-dark border-dark mb-2">find</button>
             </form>
+
             <table class="table table-light">
                 <thead>
                 <tr class="table table-dark text-white h3">
                     <th>ID</th>
-                    <th>Nom</th>
+                    <th>Name</th>
+                    <th>Age</th>
                     <th>Date</th>
-                    <th>Malade</th>
-                    <th>Score</th>
+                    <th>Sick</th>
                     <th>Action</th>
                 </tr>
                 </thead>
+
                 <tbody>
-                <tr th:each="p:${listPatients}">
-                    <td class="bg-dark text-white h3" th:text="${p.id}"></td>
-                    <td th:text="${p.nom}"></td>
-                    <td th:text="${p.dateNaissance}"></td>
-                    <td th:text="${p.malade}"></td>
-                    <td th:text="${p.score}"></td>
-                    <td><a onclick="return confirm('Etes vous sure de vouloir supprimer cette ligne?')"
-                           class="btn btn-danger" th:href="@{delete(id=${p.id}, keyWord=${keyWord}, page=${currentPage})}">
-                        Delete</a></td>
-                </tr>
+                    <tr th:each="p:${listPatients}">
+                        <td class="bg-dark text-white h3" th:text="${p.id}"></td>
+                        <td th:text="${p.name}"></td>
+                        <td th:text="${p.age}"></td>
+                        <td th:text="${p.dateNaissance}"></td>
+                        <td th:text="${p.sick}"></td>
+                        <td><a onclick="return confirm('Etes vous sure de vouloir supprimer cette ligne?')"
+                               class="btn btn-danger border-dark" th:href="@{delete(id=${p.id}, keyWord=${keyWord}, page=${currentPage})}">
+                            Delete</a></td>
+                    </tr>
                 </tbody>
             </table>
 
-            <ul class="nav nav-pills">
-                <li th:each="page,status:${pages}">
-                    <a th:class="${status.index==currentPage?'btn btn-dark me-2':'btn btn-outline-dark me-2'}"
-                       th:text="${status.index}"
-                       th:href="@{index(page=${status.index},keyWord=${keyWord})}">
-                    </a>
-                </li>
-            </ul>
+            <div class="d-flex justify-content-center">
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-dark me-2':'btn btn-outline-dark me-2'}"
+                           th:text="${status.index}"
+                           th:href="@{index(page=${status.index},keyWord=${keyWord})}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>

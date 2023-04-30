@@ -1,12 +1,13 @@
 package ma.emsi.patientsmvc.web;
 
-import lombok.AllArgsConstructor;
+
 import ma.emsi.patientsmvc.entities.Patient;
 import ma.emsi.patientsmvc.repositories.PatientRepository;
+import org.springframework.ui.Model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,29 +24,32 @@ public class PatientController {
         return "redirect:/index";
     }
 
+    @GetMapping("/patientsJson")
+    @ResponseBody
+    public List<Patient> listePatients(){
+        return patientRepository.findAll();
+    }
+
     @GetMapping(path="/index")
     public String rechercherPatiens(Model model ,
-                           @RequestParam(name="page",defaultValue = "0") int page ,
-                           @RequestParam(name="size",defaultValue = "5")  int size ,
+                           @RequestParam(name="page", defaultValue = "0") int page ,
+                           @RequestParam(name="size", defaultValue = "5")  int size ,
                            @RequestParam(name="keyWord", defaultValue = "") String keyWord)
     {
-        Page<Patient> pagePatients=patientRepository.findByNomContains(keyWord,PageRequest.of(page,size));
+        Page<Patient> pagePatients=patientRepository.findByNameContains(keyWord,PageRequest.of(page,size));
         model.addAttribute("listPatients",pagePatients.getContent());
         model.addAttribute("pages",new int[pagePatients.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyWord",keyWord);
-        //retourne une vue appele patients.html
+
+        //retourne la vue patients.html
         return "patients";
     }
+
     @GetMapping("/delete")
     public String delete(Long id, String keyWord, int page){
         patientRepository.deleteById(id);
         return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }
 
-    @GetMapping("/patientsJson")
-    @ResponseBody
-    public List<Patient> listePatients(){
-        return patientRepository.findAll();
-    }
 }
