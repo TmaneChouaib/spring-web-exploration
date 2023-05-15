@@ -15,7 +15,6 @@ public class Patient {
     private Long id;
     private String name;
     private int age;
-
     @Temporal(TemporalType.DATE)
     private Date date;
     private boolean sick;
