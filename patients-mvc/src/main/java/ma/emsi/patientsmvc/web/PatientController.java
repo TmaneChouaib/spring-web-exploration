@@ -1,11 +1,14 @@
 package ma.emsi.patientsmvc.web;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import ma.emsi.patientsmvc.entities.Patient;
 import ma.emsi.patientsmvc.repositories.PatientRepository;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
@@ -51,6 +54,24 @@ public class PatientController {
     @GetMapping("/deletePatients")
     public String deletePatients(Long id, String keyWord, int page){
         patientRepository.deleteById(id);
+        return "redirect:/index?page="+page+"&keyWord="+keyWord;
+    }
+
+    @GetMapping("/addPatients")
+    public String addPatients(Model model){
+        model.addAttribute("patient",new Patient());
+        return "addPatients";
+    }
+
+    @PostMapping(path="/savePatients")
+    public String savePatients(Model mode,
+                               @Valid Patient patient ,
+                               BindingResult bindingResult ,
+                               @RequestParam (defaultValue = "0") int page ,
+                               @RequestParam (defaultValue = "") String keyWord){
+        if(bindingResult.hasErrors())
+            return "addPatients";
+        patientRepository.save(patient);
         return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }
 
