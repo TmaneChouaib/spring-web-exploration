@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="navbar">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Patient</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="contentPagePatient">
+  <div class="d-flex justify-content-center mt-5 pt-5">
+    <div class="col-md-4">
+      <form th:action="@{savePatients(page=${page} , keyWord=${keyWord})}" method="post">
+        <div class="container">
+          <h2 class="text-center">Form Edit Patient</h2>
+          <div class="mt-2">
+            <label >Id :</label>
+            <label th:text="${patient.id}"></label>
+            <input type="hidden" name="id" class="form-control" th:value="${patient.id}">
+          </div>
+          <div class="mt-2">
+            <label class="form-label">Name :</label>
+            <input type="text" name="name" class="form-control" th:value="${patient.name}">
+            <span th:errors="${patient.name}" class="text-danger"></span>
+          </div>
+          <div class="mt-2">
+            <label class="form-label">Age :</label>
+            <input type="number" name="age" class="form-control" th:value="${patient.age}">
+            <span th:errors="${patient.age}" class="text-danger"></span>
+          </div>
+          <div class="mt-2">
+            <label class="form-label">Date :</label>
+            <input type="date" name="date" class="form-control" th:value="${patient.date}">
+            <span th:errors="${patient.date}" class="text-danger"></span>
+          </div>
+          <div class="form-check mt-3">
+            <input type="checkbox" name="sick" class="form-check-input" th:cheched="${patient.sick}">
+            <label class="form-check-label">Sick </label>
+            <span th:errors="${patient.sick}" class="text-danger"></span>
+          </div>
+          <div class="d-flex justify-content-center mt-5">
+            <button type="submit" class="btn btn-dark mt-2">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
