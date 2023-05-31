@@ -75,4 +75,13 @@ public class PatientController {
         return "redirect:/index?page="+page+"&keyWord="+keyWord;
     }
 
+    @GetMapping("/editPatients")
+    public String editPatients(Model model ,Long id ,String keyWord ,int page){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient==null) throw new RuntimeException("Patient cannot be find");
+        model.addAttribute("patient",patient);
+        model.addAttribute("page",page);
+        model.addAttribute("keyWord",keyWord);
+        return "editPatients";
+    }
 }
